@@ -1,15 +1,18 @@
 import React,{useState,useEffect} from 'react'
 import {View, Text, StyleSheet, ScrollView,Image} from 'react-native'
+import { useSelector, useDispatch} from 'react-redux'
 
 import {URL_BASE,headers, random_image} from '../constants/links'
 import { TextInput } from 'react-native-gesture-handler'
 
-const ListingShow = (p) =>{
+const ListingShow = () =>{
 
     const[props,setProps] = useState({})
 
+    const dispatch = useDispatch()
+    const listingId = useSelector(state => state.first.listing_display_id)
     useEffect(()=>{
-        fetch(URL_BASE+`/listings/${p.navigation.state.params.id}`)
+        fetch(URL_BASE+`/listings/${listingId}`)
             .then(res => res.json())
             .then(res => setProps(res))
     },[])

@@ -1,37 +1,38 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet, ScrollView,ImageBackground, TouchableWithoutFeedback, Keyboard} from 'react-native'
+import {View, Text, StyleSheet, ScrollView,ImageBackground, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native'
 import { useSelector, useDispatch} from 'react-redux'
 
 import Form from '../components/Form'
 import CardInsert from '../components/CardInsert'
 
 
-import {URL_BASE,headers,random_image} from '../constants/links'
+import {URL_BASE,headers,random_image,POST_CONF} from '../constants/links'
 
 const LogIn = props =>{
     const dispatch = useDispatch()
-    const userIdTest = useSelector(state => state)
-
     const handleChange = () =>{
-        // props.navigation.navigate('SignUp')
-        dispatch({type:"TEST"})
+        props.navigation.navigate('SignUp')
+        // dispatch({type:"TEST"})
     }
     const handleSubmit =(username,password)=>{
         username = username.trim()
-        props.navigation.navigate('Home')
-        // fetch(URL_BASE + `login`,{
-        //     method:'POST',
-        //     headers,
-        //     body:JSON.stringify({
-        //         user:{
-        //             username,
-        //             password}
-        //     })
-        // })
-        // .then(res=>res.json())
-        // .then(console.log)
+    
+        
+        body= JSON.stringify({user:{username,password}})
+        
+        const config ={...POST_CONF,body}
+
+        fetch(URL_BASE + `login`,config)
+            .then(res => res.json())
+            .then(res =>{
+                if(res.message) throw res.message
+                else{
+                    dispatch({type:'SET_CURRENT_USER',payload:res})
+                    props.navigation.navigate('Home')
+                }
+            })
+            .catch(error => Alert.alert(error))
     }
-    console.log(userIdTest.first.hello)
     return(
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
             <View style={styles.container}>
