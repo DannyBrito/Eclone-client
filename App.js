@@ -1,19 +1,26 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React,{useState,useEffect} from 'react';
+import { StyleSheet} from 'react-native';
+
+import { Provider } from 'react-redux'
+import store from './redux/store'
+
+import Navigator from './routes/SignUp'
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#9FA1AC',
+    // alignItems: 'center',
+    // alignContent: 'space-between',
+    // justifyItems:'center'
   },
 });
