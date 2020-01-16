@@ -1,37 +1,33 @@
 import React,{useState,useEffect} from 'react'
 import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native'
 
-import {URL_BASE,headers} from '../constants/links'
-
 import ListingFlatList from '../components/ListingFlatList'
-
-import Card from '../components/Card'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useSelector, useDispatch} from 'react-redux'
 
+import {ChangeDisplayListing} from '../redux/actions'
+
+import {autoFetchListings,userOwnListingsFetch} from '../redux/actions'
+
+import {POST_FETCH} from '../constants/links'
+
 const Home = props =>{
     const dispatch = useDispatch()
-    const [timer,setTimer] = useState(1)
-    const [listings,setListings] = useState([])
 
-    const handlePress = id =>{
-        dispatch({type:"CHANGE_DISPLAY_LISTING_ID",payload:id})
+    const listings = useSelector(state => state.first.fetched_listings)
+    const user = useSelector(state => state.first.currentUser)
+    
+    const handlePress = listingProps =>{
+        const {url,...listing} = listingProps
+        dispatch(ChangeDisplayListing(listing))
         props.navigation.navigate('ListingShow')
-
-        // console.log(id)
+        
     }
+    
     useEffect(()=>{
-        fetch(URL_BASE + `listings`)
-            .then(res=>res.json())
-            .then(res => {
-                setListings(res)
-                dispatch({type:'FETCH_LISTINGS',payload:res})
-            })
-            .catch(console.log)
+        dispatch(autoFetchListings())
+        dispatch(userOwnListingsFetch(user.id))
     },[])
-
-    // console.log(listings)
     return(
 
         <View style={styles.home}>

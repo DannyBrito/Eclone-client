@@ -1,30 +1,40 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet, ScrollView,ImageBackground, TextInput,TouchableWithoutFeedback,Keyboard} from 'react-native'
-import Form from '../components/Form'
+import {View, Text, StyleSheet, ScrollView,ImageBackground, TextInput,TouchableWithoutFeedback,Keyboard,Alert} from 'react-native'
 
 import CardInsert from '../components/CardInsert'
 
-import {URL_BASE,headers,random_image} from '../constants/links'
+import {URL_BASE,POST_CONF} from '../constants/links'
 import SignUpForm from '../components/SignUpForm'
 
+import {SetCurrentUser} from '../redux/actions'
+import { useSelector, useDispatch} from 'react-redux'
+
+
+
 const SignUp = props =>{
+    const dispatch = useDispatch()
+
     const handleChange = () =>{
         props.navigation.goBack()
     }
     const handleSubmit =(username,password)=>{
         username = username.trim()
-        fetch(URL_BASE + `login`,{
-            method:'POST',
-            headers,
-            body:JSON.stringify({
-                user:{
-                    username,
-                    password}
+        
+        const body= JSON.stringify({user:{username,password}})
+        const config ={...POST_CONF,body}
+        fetch(URL_BASE + `users`,config)
+            .then(res => res.json())
+            .then(res =>{
+                if(res.message) throw res.message
+                else{
+                    dispatch(SetCurrentUser(res.user))
+                    Keyboard.dismiss()
+                    props.navigation.navigate('Home')
+                }
             })
-        })
-        .then(res=>res.json())
-        .then(console.log)
+            .catch(error => Alert.alert(error))
     }
+
     return(
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
             <View style={styles.container}>

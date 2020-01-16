@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import {View, Text, StyleSheet,Button,TouchableWithoutFeedback,Keyboard, Alert} from 'react-native'
 import InputLabel from '../components/InputLabel'
-import {POST_CONF,URL_BASE} from '../constants/links'
+import {POST_FETCH} from '../constants/links'
+import {useSelector,useDispatch} from 'react-redux'
+import {addToOwnListings,addToFetchListings} from '../redux/actions'
 
 const NewListing = props =>{
+    const user = useSelector(state => state.first.currentUser)
+    const dispatch = useDispatch()
+
     const[title,setTitle] = useState('')
     const[condition,setCondition] = useState('')
     const[description,setDescription] = useState('')
@@ -11,14 +16,13 @@ const NewListing = props =>{
 
     const handleSubmit = ()=> {
         if(title && condition && description && price){
-        const body = JSON.stringify({listing:{title,condition,description,price}})
-        const Config ={...POST_CONF,body}
-        fetch(URL_BASE +`users/6/listings`,Config)
-        .then(res => res.json())
-        .then(console.log)
-
-        // if need to navigate somewhere
-        // props.navigation.navigate('Home')
+            const modprice = parseFloat(price).toFixed(2)
+            POST_FETCH(`users/${user.id}/listings`,
+            {listing:{title,condition,description,price:modprice}})
+            .then(res => {
+                dispatch(addToOwnListings(res))
+                dispatch(addToFetchListings(res))
+            })
         }
         else{
         Alert.alert('Missing a required field')
@@ -28,6 +32,7 @@ const NewListing = props =>{
         setDescription('')
         setPrice('')
     }
+    // console.log(user)
     return(
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
             <View style={styles.container}>

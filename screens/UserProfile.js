@@ -4,29 +4,35 @@ import { TextInput } from 'react-native-gesture-handler'
 import ListingFlatList from '../components/ListingFlatList'
 import { useSelector, useDispatch} from 'react-redux'
 
+import {ChangeDisplayListing} from '../redux/actions'
+
 import {random_image} from '../constants/links'
 const UserProfile = props =>{
     const dispatch = useDispatch()
-    const data = useSelector(state => state.first.data)
+    const user = useSelector(state => state.first.currentUser)
+    const data = useSelector(state => state.first.own_listings)
     
-    const handlePress = id =>{
-        dispatch({type:"CHANGE_DISPLAY_LISTING_ID",payload:id})
+    const handlePress = listingProps =>{
+        const {url,...listing} = listingProps
+        dispatch(ChangeDisplayListing(listing))
         props.navigation.navigate('ListingShow')
     }
+    // console.log(data)
     return(
         <View style={styles.container}>
 
             <View style={styles.titleBox}>
-                <Text style={styles.title}>User's Profile</Text>
+    <Text style={styles.title}>{user.username[user.username.length-1] === 's'? user.username + '\'':user.username +'\'s'} Profile {data.length}</Text>
             </View>
                 
             <View style={styles.contentBox}>
                 <Image style={styles.image} source={{uri:random_image}}/>
-                <Text style={styles.content}>BioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBio</Text>
+                <Text style={styles.content}>{user.bio? user.bio :`${user.username} does not have a bio yet`}</Text>
             </View>
-
+            <View style={styles.spacing}></View>
             <View style={styles.Listing}>
-            <ListingFlatList data={data} handlePress={handlePress}/>
+            {!data.length ?<Text>No listings for this user</Text> :
+            <ListingFlatList data={data} handlePress={handlePress}/>}
             </View>
 
         </View>
@@ -61,18 +67,23 @@ const styles = StyleSheet.create({
     contentBox:{
         paddingVertical:0,
         paddingHorizontal:30,
-        // height:100,
+        minHeight:300,
         // borderColor:'red',
         // backgroundColor:'red',
-        borderBottomColor:'grey',
+        borderBottomColor:'black',
         borderBottomWidth:0.2  
     },
     content:{
         fontSize:20,
         color:'grey',
         textAlign:'center'
+    },spacing:{
+        height:15,
+        backgroundColor:'#dedede'
     },
     Listing:{
+        borderTopColor:'black',
+        borderTopWidth:0.2,
         flex:2,
         // paddingHorizontal:30,
         paddingLeft:35

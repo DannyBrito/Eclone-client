@@ -5,7 +5,7 @@ import { TextInput } from 'react-native-gesture-handler'
 const InputLabel = props =>{
     return(
         <View style={{...styles.container,...props.style}}>
-            <Text style={{...styles.text}}>{props.title}</Text>
+            <Text style={{...styles.text,...props.title_style}}>{props.title}</Text>
             <TextInput keyboardType={props.keyboardType} style={{...styles.input}}value={props.value} onChangeText={props.handleChange} placeholder={props.placeholder}/>
         </View>
     )
@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize:20,
-        paddingBottom:10
+        paddingBottom:10,
+        // color:'blue'
     },
     input:{
         height:30,

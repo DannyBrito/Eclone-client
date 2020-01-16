@@ -5,17 +5,18 @@ import { useSelector, useDispatch} from 'react-redux'
 import {URL_BASE,headers, random_image} from '../constants/links'
 import { TextInput } from 'react-native-gesture-handler'
 
+
 const ListingShow = () =>{
-
-    const[props,setProps] = useState({})
-
-    const dispatch = useDispatch()
-    const listingId = useSelector(state => state.first.listing_display_id)
-    useEffect(()=>{
-        fetch(URL_BASE+`/listings/${listingId}`)
-            .then(res => res.json())
-            .then(res => setProps(res))
-    },[])
+    // const listings = useSelector(state => state.first.fetched_listings)
+    // const[props,setProps] = useState({})
+    const props = useSelector(state => state.first.listing_display)
+    // const props = listings.find(listing => listing.id === listingId)
+    // useEffect(()=>{
+    //     fetch(URL_BASE+`/listings/${listingId}`)
+    //         .then(res => res.json())
+    //         .then(res => setProps(res))
+    // },[])
+    
     // console.log(p.navigation.state.params.id)
     return(
         <View style={styles.container}>

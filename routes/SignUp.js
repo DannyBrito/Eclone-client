@@ -7,6 +7,7 @@ import Home from '../screens/Home'
 import ListingShow from '../screens/ListingShow'
 import NewListing from '../screens/NewListing'
 import UserProfile from '../screens/UserProfile'
+import SearchBase from '../screens/SearchBase'
 
 const screens = {
     LogIn:{
@@ -45,7 +46,8 @@ export default createAppContainer(
                 header:() => false,
             }},
         NewListing:{screen:NewListing},
-        UserProfile:{screen:UserProfile}
+        UserProfile:{screen:UserProfile},
+        Search:{screen:SearchBase}
     },
     {
 

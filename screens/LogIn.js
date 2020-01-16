@@ -5,8 +5,8 @@ import { useSelector, useDispatch} from 'react-redux'
 import Form from '../components/Form'
 import CardInsert from '../components/CardInsert'
 
-
-import {URL_BASE,headers,random_image,POST_CONF} from '../constants/links'
+import {SetCurrentUser} from '../redux/actions'
+import {URL_BASE,POST_CONF} from '../constants/links'
 
 const LogIn = props =>{
     const dispatch = useDispatch()
@@ -16,8 +16,7 @@ const LogIn = props =>{
     }
     const handleSubmit =(username,password)=>{
         username = username.trim()
-    
-        
+
         body= JSON.stringify({user:{username,password}})
         
         const config ={...POST_CONF,body}
@@ -27,7 +26,8 @@ const LogIn = props =>{
             .then(res =>{
                 if(res.message) throw res.message
                 else{
-                    dispatch({type:'SET_CURRENT_USER',payload:res})
+                    dispatch(SetCurrentUser(res.user))
+                    Keyboard.dismiss()
                     props.navigation.navigate('Home')
                 }
             })

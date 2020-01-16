@@ -1,21 +1,28 @@
+import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS} from './action_type'
+
 const defaultState = {
     hello:'poop',
-    data:[],
+    fetched_listings:[],
     currentUser:{},
-    listing_display_id:null
+    listing_display:{},
+    own_listings:[]
 }
 
 function reducer(prevState = defaultState,{type,payload}){
 
     switch(type){
-        case "TEST":
-            return {...prevState,hello:'nevermind'}
-        case 'FETCH_LISTINGS':
-            return {...prevState,data:payload}
-        case 'CHANGE_DISPLAY_LISTING_ID':
-            return{...prevState,listing_display_id:payload}
-        case 'SET_CURRENT_USER':
+        case FETCH_LISTINGS:
+            return {...prevState,fetched_listings:payload}
+        case CHANGE_DISPLAY_LISTING:
+            return{...prevState,listing_display:payload}
+        case SET_CURRENT_USER:
             return{...prevState,currentUser:payload}
+        case FETCH_OWN_LISTINGS:
+            return{...prevState,own_listings:payload}
+        case ADD_TO_OWN_LISTINGS:
+            return{...prevState,own_listings:[...prevState.own_listings,payload]}
+        case ADD_TO_FETCH_LISTINGS:
+            return{...prevState,fetched_listings:[...prevState.fetched_listings,payload]}
         default:
             return prevState
     }
