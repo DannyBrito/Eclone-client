@@ -1,6 +1,5 @@
-import React from 'react'
-import {View, Text, StyleSheet,Image} from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
+import React, { useState } from 'react'
+import {View, Text, StyleSheet,Image, Button} from 'react-native'
 import ListingFlatList from '../components/ListingFlatList'
 import { useSelector, useDispatch} from 'react-redux'
 
@@ -10,8 +9,9 @@ import {random_image} from '../constants/links'
 const UserProfile = props =>{
     const dispatch = useDispatch()
     const user = useSelector(state => state.first.currentUser)
-    const data = useSelector(state => state.first.own_listings)
-    
+    const liked = useSelector(state => state.first.liked_listings)
+    const own = useSelector(state => state.first.own_listings)
+    const [showLiked, setShowLiked]= useState(false)
     const handlePress = listingProps =>{
         const {url,...listing} = listingProps
         dispatch(ChangeDisplayListing(listing))
@@ -22,17 +22,19 @@ const UserProfile = props =>{
         <View style={styles.container}>
 
             <View style={styles.titleBox}>
-    <Text style={styles.title}>{user.username[user.username.length-1] === 's'? user.username + '\'':user.username +'\'s'} Profile {data.length}</Text>
+    <Text style={styles.title}>{user.username[user.username.length-1] === 's'? user.username + '\'':user.username +'\'s'} Profile</Text>
             </View>
                 
             <View style={styles.contentBox}>
                 <Image style={styles.image} source={{uri:random_image}}/>
                 <Text style={styles.content}>{user.bio? user.bio :`${user.username} does not have a bio yet`}</Text>
             </View>
-            <View style={styles.spacing}></View>
+            <View style={styles.spacing}>
+                <Button title='favorites' onPress={()=> setShowLiked(true)}/>
+                <Button title='selling' onPress={()=> setShowLiked(false)}/>
+            </View>
             <View style={styles.Listing}>
-            {!data.length ?<Text>No listings for this user</Text> :
-            <ListingFlatList data={data} handlePress={handlePress}/>}
+            {showLiked ?<ListingFlatList data={liked} handlePress={handlePress}/>:<ListingFlatList data={own} handlePress={handlePress}/>}
             </View>
 
         </View>
@@ -78,7 +80,9 @@ const styles = StyleSheet.create({
         color:'grey',
         textAlign:'center'
     },spacing:{
-        height:15,
+        flexDirection:'row',
+        justifyContent:'space-around',
+        height:50,
         backgroundColor:'#dedede'
     },
     Listing:{

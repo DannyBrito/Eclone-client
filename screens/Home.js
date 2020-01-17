@@ -7,7 +7,7 @@ import { useSelector, useDispatch} from 'react-redux'
 
 import {ChangeDisplayListing} from '../redux/actions'
 
-import {autoFetchListings,userOwnListingsFetch} from '../redux/actions'
+import {autoFetchListings,userOwnListingsFetch,userLikedListingFetch} from '../redux/actions'
 
 import {POST_FETCH} from '../constants/links'
 
@@ -27,6 +27,7 @@ const Home = props =>{
     useEffect(()=>{
         dispatch(autoFetchListings())
         dispatch(userOwnListingsFetch(user.id))
+        dispatch(userLikedListingFetch(user.id))
     },[])
     return(
 

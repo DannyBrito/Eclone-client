@@ -39,6 +39,9 @@ const SearchBase = props =>{
                     </View>
                 </View>
             </View>
+            <View style={styles.divisionBox}>
+    <Text style={styles.divisionText}> {data.length} Found Result(s)</Text>
+            </View>
             <View style={styles.results}>
                 <ListingFlatList data={data} handlePress={handlePress}/>
             </View>
@@ -74,8 +77,22 @@ const styles = StyleSheet.create({
         borderWidth:1.4,
         width:100
     },
-    results:{
+    divisionBox:{
+        height:35,
         paddingTop:5,
+        borderBottomColor:'grey',
+        borderBottomWidth:2
+        // paddingLeft:60,
+        // backgroundColor:'red'
+        // color:'green'
+    },
+    divisionText:{
+        color:'blue',
+        fontSize:20,
+        alignSelf:'center'
+    },
+    results:{
+        // paddingTop:5,
         paddingLeft:30,
     }
 })

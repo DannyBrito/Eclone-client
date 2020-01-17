@@ -16,7 +16,7 @@ const LogIn = props =>{
     }
     const handleSubmit =(username,password)=>{
         username = username.trim()
-
+        Keyboard.dismiss()
         body= JSON.stringify({user:{username,password}})
         
         const config ={...POST_CONF,body}

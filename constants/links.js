@@ -1,4 +1,4 @@
- const URL ='https://c39a94c7.ngrok.io'
+ const URL ='https://a33e90ad.ngrok.io/'
  
  const URL_BASE =  URL + '/api/v1/'
 
@@ -11,7 +11,15 @@
      method: 'POST',
      headers
 }
+ const DELETE_CONF = {
+     method: 'DELETE',
+     headers
+}
 
+export const DELETE_FETCH = (path)=>{
+        return fetch(URL_BASE + path,DELETE_CONF)
+                .then(res => res.json())
+}
 export const POST_FETCH = (path,body ={})=>{
     body= JSON.stringify(body)
     let config = {...POST_CONF,body}

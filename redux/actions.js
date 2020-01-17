@@ -1,4 +1,4 @@
-import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS} from './action_type'
+import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS} from './action_type'
 import {URL_BASE} from '../constants/links'
 import { Alert } from 'react-native'
 
@@ -25,6 +25,25 @@ export function userOwnListingsFetch(id){
         .catch(console.log)
     }
 }
+export function likedListings (listings){
+    return{
+        type:SETTING_LIKED_LISTINGS,
+        payload:listings
+    }
+}
+
+export function userLikedListingFetch(id){
+    return(dispatch,getState) =>{
+
+        fetch(URL_BASE+`/users/${id}/favorites`)
+        .then(res => res.json())
+        .then(res => {dispatch(likedListings(res))})
+        .catch(console.log)
+        
+    }
+}
+
+
 
 // Add to userOwnListings
 export function addToOwnListings(listing){
