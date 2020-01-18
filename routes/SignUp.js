@@ -8,6 +8,8 @@ import ListingShow from '../screens/ListingShow'
 import NewListing from '../screens/NewListing'
 import UserProfile from '../screens/UserProfile'
 import SearchBase from '../screens/SearchBase'
+import Playground from '../screens/Playground'
+import CartCheckOut from '../screens/CartCheckOut'
 
 const screens = {
     LogIn:{
@@ -47,7 +49,8 @@ export default createAppContainer(
             }},
         NewListing:{screen:NewListing},
         UserProfile:{screen:UserProfile},
-        Search:{screen:SearchBase}
+        Search:{screen:SearchBase},
+        PlayGround:{screen:CartCheckOut}
     },
     {
 

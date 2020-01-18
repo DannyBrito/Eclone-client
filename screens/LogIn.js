@@ -6,23 +6,17 @@ import Form from '../components/Form'
 import CardInsert from '../components/CardInsert'
 
 import {SetCurrentUser} from '../redux/actions'
-import {URL_BASE,POST_CONF} from '../constants/links'
+import {POST_FETCH} from '../constants/links'
 
 const LogIn = props =>{
     const dispatch = useDispatch()
     const handleChange = () =>{
         props.navigation.navigate('SignUp')
-        // dispatch({type:"TEST"})
     }
     const handleSubmit =(username,password)=>{
         username = username.trim()
         Keyboard.dismiss()
-        body= JSON.stringify({user:{username,password}})
-        
-        const config ={...POST_CONF,body}
-
-        fetch(URL_BASE + `login`,config)
-            .then(res => res.json())
+        POST_FETCH('login',{user:{username,password}})
             .then(res =>{
                 if(res.message) throw res.message
                 else{

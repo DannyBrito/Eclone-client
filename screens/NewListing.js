@@ -3,7 +3,7 @@ import {View, Text, StyleSheet,Button,TouchableWithoutFeedback,Keyboard, Alert} 
 import InputLabel from '../components/InputLabel'
 import {POST_FETCH} from '../constants/links'
 import {useSelector,useDispatch} from 'react-redux'
-import {addToOwnListings,addToFetchListings} from '../redux/actions'
+import {addToOwnListings,addToFetchListings,ChangeDisplayListing} from '../redux/actions'
 
 const NewListing = props =>{
     const user = useSelector(state => state.first.currentUser)
@@ -15,6 +15,7 @@ const NewListing = props =>{
     const[price,setPrice] = useState('')
 
     const handleSubmit = ()=> {
+        Keyboard.dismiss()
         if(title && condition && description && price){
             const modprice = parseFloat(price).toFixed(2)
             POST_FETCH(`users/${user.id}/listings`,
@@ -22,6 +23,9 @@ const NewListing = props =>{
             .then(res => {
                 dispatch(addToOwnListings(res))
                 dispatch(addToFetchListings(res))
+                dispatch(addToFetchListings(res))
+                dispatch(ChangeDisplayListing(res))
+                props.navigation.navigate('ListingShow')
             })
         }
         else{

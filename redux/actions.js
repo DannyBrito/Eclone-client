@@ -1,4 +1,4 @@
-import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS} from './action_type'
+import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS,FETCH_OUT_STOCK_LISTINGS} from './action_type'
 import {URL_BASE} from '../constants/links'
 import { Alert } from 'react-native'
 
@@ -43,6 +43,21 @@ export function userLikedListingFetch(id){
     }
 }
 
+export function fetchOutStockListings(listings){
+    return{
+        type:FETCH_OUT_STOCK_LISTINGS,
+        payload:listings
+    }
+}
+export function outStockListingsFetch(){  
+    return(dispatch,getState) =>{
+        fetch(URL_BASE+'listings_out_stock')
+        .then(res=>res.json())
+        .then(res => {
+            dispatch(fetchOutStockListings(res))
+        })
+    }
+}
 
 
 // Add to userOwnListings

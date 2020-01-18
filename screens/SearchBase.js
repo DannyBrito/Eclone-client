@@ -12,7 +12,7 @@ const SearchBase = props =>{
      const dispatch = useDispatch()
      const handleSubmit = () =>{
         if(searchQuery.trim()){
-        fetch(URL_BASE+`/search/${searchQuery.trim()}`)
+        fetch(URL_BASE+`/search/${searchQuery.trim()}?xr=never`)
             .then(res =>res.json())
             .then(res =>{
                 setData(res)

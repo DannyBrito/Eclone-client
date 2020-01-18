@@ -4,6 +4,7 @@ import { useSelector, useDispatch} from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
 import {DELETE_FETCH, random_image,POST_FETCH} from '../constants/links'
 import { likedListings as likedListingsAction } from '../redux/actions'
+import { Button } from 'react-native-elements';
 
 
 const ListingShow = () =>{
@@ -19,12 +20,18 @@ const ListingShow = () =>{
         if(tempFav){
             setLiked(tempFav)
         }
+        else{
+            setLiked({})
+        }
     },[])
 
     useEffect(()=>{
         const tempFav = likedListings.find(favL => favL.id === props.id)
             if(tempFav){
                 setLiked(tempFav)
+            }
+            else{
+                setLiked({})
             }
         },[props,likedListings])
         
@@ -61,15 +68,23 @@ const ListingShow = () =>{
                 <Image style={styles.image} source={{uri: random_image}} />
             </View>
             <View style={styles.content}>
+                <View style={styles.base}>
                 <Text style={styles.price}>${props.price}</Text>
+                {liked.fav_id ? 
+                <View style={styles.heartButton}>
+                    <Ionicons name={'ios-heart'} size={32} color={'red'} onPress={handleDelete}/>
+                </View>
+                :
+                <View style={styles.heartButton}>
+                    <Ionicons name={'ios-heart-empty'} size={32} color={'black'} onPress={handlePost}/>
+                </View>
+            }
+                </View>
                 <Text style={styles.condition}>condition: {props.condition}</Text>
                 <Text style={styles.description}>{props.description}</Text>
             </View>
-            {liked.fav_id ?
-            <Ionicons name={'ios-heart'} size={32} color={'red'} onPress={handleDelete}/>
-            :
-            <Ionicons name={'ios-heart-empty'} size={32} color={'black'} onPress={handlePost}/>
-            }
+        
+            {props.on_stock &&<View><Button title='Add To Cart 🛒'/><Ionicons name={'ios-cart'} size={32} color={'blue'} /></View>}
         </View>
     )
 
@@ -82,6 +97,10 @@ const styles = StyleSheet.create({
         padding:20,
         paddingTop:50,
         // alignItems:'center'
+    },
+    base:{
+        flexDirection:'row',
+        justifyContent:'space-between'
     },
     titleBox:{
         // flex:2,
@@ -125,6 +144,10 @@ const styles = StyleSheet.create({
     description:{
         paddingTop:10,
         flex:1,
+    },
+    heartButton:{
+        // backgroundColor:'blue',
+        width:30
     }
 })
 

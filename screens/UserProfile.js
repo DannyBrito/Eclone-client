@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {View, Text, StyleSheet,Image, Button} from 'react-native'
 import ListingFlatList from '../components/ListingFlatList'
 import { useSelector, useDispatch} from 'react-redux'
-
+import {ButtonGroup,Divider} from 'react-native-elements'
 import {ChangeDisplayListing} from '../redux/actions'
 
 import {random_image} from '../constants/links'
@@ -11,6 +11,10 @@ const UserProfile = props =>{
     const user = useSelector(state => state.first.currentUser)
     const liked = useSelector(state => state.first.liked_listings)
     const own = useSelector(state => state.first.own_listings)
+
+    const [selectedIndex,setSelectedIndex] = useState(0)
+    const buttons =['Selling','Favorites']
+
     const [showLiked, setShowLiked]= useState(false)
     const handlePress = listingProps =>{
         const {url,...listing} = listingProps
@@ -29,12 +33,18 @@ const UserProfile = props =>{
                 <Image style={styles.image} source={{uri:random_image}}/>
                 <Text style={styles.content}>{user.bio? user.bio :`${user.username} does not have a bio yet`}</Text>
             </View>
+            {/* <Divider style={{ backgroundColor: 'blue' }} /> */}
             <View style={styles.spacing}>
-                <Button title='favorites' onPress={()=> setShowLiked(true)}/>
-                <Button title='selling' onPress={()=> setShowLiked(false)}/>
+            <ButtonGroup
+            disabled={[]}
+                onPress={setSelectedIndex}
+                selectedIndex={selectedIndex}
+                buttons={buttons}
+                containerStyle={styles.buttonBox}
+            />
             </View>
             <View style={styles.Listing}>
-            {showLiked ?<ListingFlatList data={liked} handlePress={handlePress}/>:<ListingFlatList data={own} handlePress={handlePress}/>}
+            {selectedIndex === 1 ?<ListingFlatList data={liked} handlePress={handlePress}/>:<ListingFlatList data={own} handlePress={handlePress}/>}
             </View>
 
         </View>
@@ -69,11 +79,11 @@ const styles = StyleSheet.create({
     contentBox:{
         paddingVertical:0,
         paddingHorizontal:30,
-        minHeight:300,
+        minHeight:275,
         // borderColor:'red',
         // backgroundColor:'red',
         borderBottomColor:'black',
-        borderBottomWidth:0.2  
+        // borderBottomWidth:0.2  
     },
     content:{
         fontSize:20,
@@ -84,6 +94,12 @@ const styles = StyleSheet.create({
         justifyContent:'space-around',
         height:50,
         backgroundColor:'#dedede'
+    },
+    buttonBox:{
+        height:40,
+        width:300,
+        // alignSelf:'center',
+        // pad
     },
     Listing:{
         borderTopColor:'black',

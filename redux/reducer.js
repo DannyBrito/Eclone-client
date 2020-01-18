@@ -1,4 +1,4 @@
-import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS} from './action_type'
+import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS,FETCH_OUT_STOCK_LISTINGS} from './action_type'
 
 const defaultState = {
     hello:'poop',
@@ -6,7 +6,8 @@ const defaultState = {
     currentUser:{},
     listing_display:{},
     own_listings:[],
-    liked_listings:[]
+    liked_listings:[],
+    out_stock_listings:[]
 }
 
 function reducer(prevState = defaultState,{type,payload}){
@@ -39,6 +40,10 @@ function reducer(prevState = defaultState,{type,payload}){
         case SETTING_LIKED_LISTINGS:
 
             return{...prevState,liked_listings:payload}
+
+        case FETCH_OUT_STOCK_LISTINGS:
+
+            return{...prevState,out_stock_listings:payload}
 
         default:
 

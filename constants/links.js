@@ -1,4 +1,4 @@
- const URL ='https://a33e90ad.ngrok.io/'
+ const URL ='https://6591d05f.ngrok.io'
  
  const URL_BASE =  URL + '/api/v1/'
 

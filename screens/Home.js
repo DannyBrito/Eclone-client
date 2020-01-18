@@ -5,9 +5,7 @@ import ListingFlatList from '../components/ListingFlatList'
 
 import { useSelector, useDispatch} from 'react-redux'
 
-import {ChangeDisplayListing} from '../redux/actions'
-
-import {autoFetchListings,userOwnListingsFetch,userLikedListingFetch} from '../redux/actions'
+import {ChangeDisplayListing,autoFetchListings,userOwnListingsFetch,userLikedListingFetch,outStockListingsFetch} from '../redux/actions'
 
 import {POST_FETCH} from '../constants/links'
 
@@ -20,24 +18,19 @@ const Home = props =>{
     const handlePress = listingProps =>{
         const {url,...listing} = listingProps
         dispatch(ChangeDisplayListing(listing))
-        props.navigation.navigate('ListingShow')
-        
+        props.navigation.navigate('ListingShow')   
     }
     
     useEffect(()=>{
         dispatch(autoFetchListings())
         dispatch(userOwnListingsFetch(user.id))
         dispatch(userLikedListingFetch(user.id))
+        dispatch(outStockListingsFetch())
     },[])
+
     return(
 
         <View style={styles.home}>
-        
-            {/* <FlatList style={styles.list}columnWrapperStyle={2} horizontal={false} numColumns={2}
-                data={listings}
-                renderItem={({item})=><Card handlePress={handlePress} {...item} url='https://source.unsplash.com/random'/>}
-                keyExtractor={item => `${item.id}`}
-            /> */}
             <ListingFlatList data={listings} handlePress={handlePress}/>
         </View>
 
