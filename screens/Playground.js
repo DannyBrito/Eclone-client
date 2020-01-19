@@ -13,7 +13,7 @@ import {POST_FETCH} from '../constants/links'
 
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
-import {ButtonGroup} from 'react-native-elements'
+import {ButtonGroup,SearchBar} from 'react-native-elements'
 
 const users = [
     {
@@ -28,27 +28,16 @@ const users = [
     },
    ]
 const Playground = props =>{
-        const [selectedIndex,setSelectedIndex] = useState(2)
-        const buttons =['hello','world']
+        const [searchQuery,setSearchQuery] = useState('')
     return(
 
         <View style={styles.home}>
-
-<Card title="CARD WITH DIVIDER">
-  {
-    users.map((u, i) => {
-      return (
-        <ListItem
-        key={i}
-        leftAvatar={{ source: { uri: u.avatar } }}
-        title={u.name}
-        rightIcon={{ name: u.icon,onPress:()=>console.log('here') }}
-        bottomDivider
-      />
-      );
-    })
-  }
-</Card>
+            <SearchBar
+              placeholder="Type Here..."
+              onChangeText={setSearchQuery}
+              value={searchQuery}
+              searchIcon={{onPress:()=>console.log('pressed')}}
+            />
         </View>
 
     )

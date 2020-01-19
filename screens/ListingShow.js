@@ -1,15 +1,16 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet, ScrollView,Image} from 'react-native'
+import {View, Text, StyleSheet, ScrollView,Image, Alert} from 'react-native'
 import { useSelector, useDispatch} from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
 import {DELETE_FETCH, random_image,POST_FETCH} from '../constants/links'
-import { likedListings as likedListingsAction } from '../redux/actions'
-import { Button } from 'react-native-elements';
-
+import { likedListings as likedListingsAction,deleteListingFromCartAction,addListingToCartAction } from '../redux/actions'
+import { Button,Icon } from 'react-native-elements';
 
 const ListingShow = () =>{
     const[liked,setLiked] = useState({})
+    const[inCartCheck,setInCartCheck] = useState({})
     const likedListings = useSelector(state => state.first.liked_listings)
+    const inCart = useSelector(state => state.first.user_in_cart_listings)
     const user = useSelector(state => state.first.currentUser)
     const dispatch = useDispatch()
 
@@ -23,6 +24,13 @@ const ListingShow = () =>{
         else{
             setLiked({})
         }
+        const tempInCart = inCart.find(listing => listing.listing_id === props.id)
+        if(tempInCart){
+            setInCartCheck(tempInCart)
+        }
+        else{
+            setInCartCheck({})
+        }
     },[])
 
     useEffect(()=>{
@@ -33,7 +41,14 @@ const ListingShow = () =>{
             else{
                 setLiked({})
             }
-        },[props,likedListings])
+        const tempInCart = inCart.find(listing => listing.listing_id === props.id)
+        if(tempInCart){
+            setInCartCheck(tempInCart)
+        }
+        else{
+            setInCartCheck({})
+        }
+        },[props,likedListings,inCart])
         
         const handleDelete = () =>{
             DELETE_FETCH(`favorites/${liked.fav_id}`)
@@ -84,7 +99,28 @@ const ListingShow = () =>{
                 <Text style={styles.description}>{props.description}</Text>
             </View>
         
-            {props.on_stock &&<View><Button title='Add To Cart 🛒'/><Ionicons name={'ios-cart'} size={32} color={'blue'} /></View>}
+
+            {inCartCheck.cart_id?
+                <View>
+                    <Button onPress={()=>dispatch(deleteListingFromCartAction(inCartCheck.cart_id))}
+                    title='Remove From Cart'iconRight
+                    icon={<Icon name="remove-shopping-cart" size={20} color="white"/>}/>
+                </View>
+                :(props.on_stock ?
+                <View>
+                    <Button onPress={()=>dispatch(addListingToCartAction(user.id,props.id))}
+                    title='Add To Cart'iconRight
+                    icon={<Icon name="shopping-cart" size={20} color="white"/>}/>
+                </View>
+                :
+                <View>
+                <Button  disabled disabledTitleStyle={{color:'white'}}disabledStyle={{backgroundColor:'grey'}}onPress={()=>Alert.alert('We are sorry this item is out stock')}
+                title='Out Of Stock    ' iconRight
+                color="red"
+                icon={<Icon name="remove-shopping-cart" size={20} color="white"/>}/>
+                </View>
+                )
+            }
         </View>
     )
 

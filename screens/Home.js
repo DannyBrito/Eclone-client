@@ -5,7 +5,7 @@ import ListingFlatList from '../components/ListingFlatList'
 
 import { useSelector, useDispatch} from 'react-redux'
 
-import {ChangeDisplayListing,autoFetchListings,userOwnListingsFetch,userLikedListingFetch,outStockListingsFetch} from '../redux/actions'
+import {ChangeDisplayListing,autoFetchListings,userOwnListingsFetch,userLikedListingFetch,outStockListingsFetch,fetchCartListingsAction} from '../redux/actions'
 
 import {POST_FETCH} from '../constants/links'
 
@@ -25,6 +25,7 @@ const Home = props =>{
         dispatch(autoFetchListings())
         dispatch(userOwnListingsFetch(user.id))
         dispatch(userLikedListingFetch(user.id))
+        dispatch(fetchCartListingsAction(user.id))
         dispatch(outStockListingsFetch())
     },[])
 

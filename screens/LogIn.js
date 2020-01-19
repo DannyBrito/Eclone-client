@@ -17,11 +17,10 @@ const LogIn = props =>{
         username = username.trim()
         Keyboard.dismiss()
         POST_FETCH('login',{user:{username,password}})
-            .then(res =>{
+        .then(res =>{
                 if(res.message) throw res.message
                 else{
                     dispatch(SetCurrentUser(res.user))
-                    Keyboard.dismiss()
                     props.navigation.navigate('Home')
                 }
             })

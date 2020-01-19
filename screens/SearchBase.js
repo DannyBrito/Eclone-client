@@ -5,9 +5,13 @@ import InputLabel from '../components/InputLabel'
 import ListingFlatList from '../components/ListingFlatList'
 import { URL_BASE } from '../constants/links'
 import {ChangeDisplayListing} from '../redux/actions'
+
+import {ButtonGroup,SearchBar} from 'react-native-elements'
+
 const SearchBase = props =>{
      const [searchQuery,setSearchQuery] = useState('')
      const [data,setData] = useState([])   
+     const [load,setLoad] = useState(false)   
     
      const dispatch = useDispatch()
      const handleSubmit = () =>{
@@ -15,6 +19,7 @@ const SearchBase = props =>{
         fetch(URL_BASE+`/search/${searchQuery.trim()}?xr=never`)
             .then(res =>res.json())
             .then(res =>{
+                setLoad(true)
                 setData(res)
             })
         }
@@ -32,16 +37,19 @@ const SearchBase = props =>{
     return(
         <View styles={styles.container}>
             <View style={styles.header}>
-                <InputLabel value={searchQuery} handleChange={setSearchQuery} title_style={styles.titleSearch} title="Search:" placeholder="search listings" style={styles.searchBox}/>
-                <View style={styles.buttonBox}>
-                    <View style={styles.button}>
-                        <Button color="white" onPress={handleSubmit} title='Search'/>
-                    </View>
-                </View>
+                <SearchBar 
+                onSubmitEditing={handleSubmit}
+                returnKeyType='search'
+              placeholder="Type Here..."
+              onChangeText={setSearchQuery}
+              value={searchQuery}
+            //   containerStyle={{backgroundColor:'#dedede'}}
+              searchIcon={{onPress:handleSubmit}}
+                />
             </View>
-            <View style={styles.divisionBox}>
-    <Text style={styles.divisionText}> {data.length} Found Result(s)</Text>
-            </View>
+            {load &&<View style={styles.divisionBox}>
+             <Text style={styles.divisionText}> {data.length} Found Result(s)</Text>
+            </View>}
             <View style={styles.results}>
                 <ListingFlatList data={data} handlePress={handlePress}/>
             </View>
@@ -56,8 +64,8 @@ const styles = StyleSheet.create({
     header:{
         paddingTop:40,
         paddingBottom:10,
-        height:170,
-        backgroundColor:'grey'
+        height:96,
+        backgroundColor:'#34383b'
     },
     searchBox:{
         paddingHorizontal:40,
@@ -92,7 +100,10 @@ const styles = StyleSheet.create({
         alignSelf:'center'
     },
     results:{
+        // backgroundColor:'red',
+        height:672,
         // paddingTop:5,
+        // flex:1,
         paddingLeft:30,
     }
 })

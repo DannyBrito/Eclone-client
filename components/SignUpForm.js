@@ -37,12 +37,12 @@ const SignUpForm = props =>{
                     </View>
                 </View>
                 <Text style={styles.paddingVertical}>Confirm Password:</Text>
-                <TextInput style={{...styles.input,borderColor:borderColor}} secureTextEntry={visiblePassword} type="password" onChangeText={setConfirmPassword} value={confirmPassword} placeholder="Password"/>
+                <TextInput returnKeyType="go" onSubmitEditing={onSubmit} style={{...styles.input,borderColor:borderColor}} secureTextEntry={visiblePassword} type="password" onChangeText={setConfirmPassword} value={confirmPassword} placeholder="Password"/>
 
 
                 <View style={styles.buttonsContainer}>
                     <View style={styles.buttonBox} >
-                        <Button style={styles.button} title="Sign-Up" onPress={onSubmit}/>
+                        <Button  style={styles.button} title="Sign-Up" onPress={onSubmit}/>
                     </View>
                     <View style={styles.buttonBox}>
                         <Button color='white' onPress={props.handleChange} style={styles.button} title="Log-In" />

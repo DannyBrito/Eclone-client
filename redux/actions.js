@@ -1,5 +1,5 @@
-import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS,FETCH_OUT_STOCK_LISTINGS} from './action_type'
-import {URL_BASE} from '../constants/links'
+import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS,FETCH_OUT_STOCK_LISTINGS,FETCH_IN_CART_LISTINGS,DELETE_LISTING_FROM_CART_TOTAL,ADD_TO_CART,BUY_IN_CART} from './action_type'
+import {URL_BASE,DELETE_FETCH, POST_FETCH} from '../constants/links'
 import { Alert } from 'react-native'
 
 export function FetchListings(listings){
@@ -101,3 +101,75 @@ export function SetCurrentUser(user){
 }
 
 
+export function fetchInCartListings(listings,total){
+    return{
+        type:FETCH_IN_CART_LISTINGS,
+        payload:listings,
+        offset:total
+    }
+}
+
+export function fetchCartListingsAction(id){
+    return (dispatch, getState) => {
+        fetch(URL_BASE+`users/${id}/in_cart`)
+            .then(res => res.json())
+            .then(res =>{
+                dispatch(fetchInCartListings(res.items,res.total))
+            })
+            .catch(console.log)
+    }
+}
+
+export function deleteListingFromCartAction(id){
+    return (dispatch, getState) => {
+        DELETE_FETCH(`carts/${id}`)
+            .then(res =>{
+                dispatch(deleteListingFromCart(res.cart_id,res.total))
+            })
+            .catch(console.log)
+    }
+}
+
+export function deleteListingFromCart(listings,total){
+    return {
+       type:DELETE_LISTING_FROM_CART_TOTAL,
+       payload:listings,
+       offset:total
+    }
+}
+
+export function addListingToCart(listing,total){
+    return{
+        type:ADD_TO_CART,
+        payload:listing,
+        offset:total
+    }
+}
+
+export function addListingToCartAction(user_id,listing_id){
+    return (dispatch, getState) => {
+        POST_FETCH('carts',{user_id:user_id,listing_id:listing_id})
+            .then(res =>{
+                dispatch(addListingToCart(res.cart_listing,res.cart_total))
+            })
+            .catch(console.log)
+    }
+}
+
+export function buyInCart(updatedListings,updatedOwnListings){
+    return{
+        type:BUY_IN_CART,
+        payload:updatedListings,
+        offset:updatedOwnListings
+    }
+}
+
+export function buyInCartAction(user_id){
+    return (dispatch, getState) => {
+        return POST_FETCH(`users/${user_id}/adquired`)
+            .then(res =>{
+                dispatch(buyInCart(res.avalible_listings,res.own_listings))
+                return res
+            })
+    }
+}
