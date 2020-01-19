@@ -9,11 +9,13 @@ import {ChangeDisplayListing} from '../redux/actions'
 
 import {autoFetchListings,userOwnListingsFetch,userLikedListingFetch} from '../redux/actions'
 
-import {POST_FETCH} from '../constants/links'
 
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
-import {ButtonGroup,SearchBar} from 'react-native-elements'
+import { Input} from 'react-native-elements'
+
+
+
+
 
 const users = [
     {
@@ -32,12 +34,7 @@ const Playground = props =>{
     return(
 
         <View style={styles.home}>
-            <SearchBar
-              placeholder="Type Here..."
-              onChangeText={setSearchQuery}
-              value={searchQuery}
-              searchIcon={{onPress:()=>console.log('pressed')}}
-            />
+          <Input errorMessage="thes required" label="title" value="lol"/>
         </View>
 
     )

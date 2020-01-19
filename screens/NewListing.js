@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import {View, Text, StyleSheet,Button,TouchableWithoutFeedback,Keyboard, Alert} from 'react-native'
+import {View, Text, StyleSheet,TouchableWithoutFeedback,Keyboard, Alert} from 'react-native'
 import InputLabel from '../components/InputLabel'
 import {POST_FETCH} from '../constants/links'
 import {useSelector,useDispatch} from 'react-redux'
 import {addToOwnListings,addToFetchListings,ChangeDisplayListing} from '../redux/actions'
-
+import {Input,Button} from 'react-native-elements'
 const NewListing = props =>{
     const user = useSelector(state => state.first.currentUser)
     const dispatch = useDispatch()
@@ -41,7 +41,7 @@ const NewListing = props =>{
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
             <View style={styles.container}>
 
-                <Text style={styles.titleListing}>Listing details</Text>
+                {/* <Text style={styles.titleListing}>Listing details</Text>
 
                 <InputLabel style={styles.spacing} handleChange={setTitle} value={title} placeholder="Add a Title" title="Title*"/>
                 <InputLabel style={styles.spacing} handleChange={setCondition} value={condition} placeholder="Item's condition" title="Condition*"/>
@@ -49,7 +49,13 @@ const NewListing = props =>{
                 <InputLabel style={{...styles.spacing}} keyboardType='numeric' handleChange={setPrice} placeholder="Item's price" value={price} title="Price*"/>
                 <View style={styles.buttonBox}>
                     <Button style={styles.button}  color="blue" title="Post Listing" onPress={handleSubmit}/>
-                </View>
+                </View> */}
+
+                <Input errorMessage="required" label="Title *" placeholder="Add a Title" onChangeText={setTitle}  value={title} />
+                <Input errorMessage="required" label="Condition *" placeholder="Item's Condition" onChangeText={setCondition} value={condition} />
+                <Input errorMessage="required" label="Description *" placeholder="Add a Description" onChangeText={setDescription} value={description} />
+                <Input errorMessage="required" keyboardType='numeric' label="Price *" placeholder="Add a Price" onChangeText={setPrice} value={price} />
+                <Button title="Post Listing" onPress={handleSubmit} type="clear"/>
             </View>
         </TouchableWithoutFeedback>
     )
@@ -58,6 +64,7 @@ const NewListing = props =>{
 const styles = StyleSheet.create({
     container:{
         flex:1,
+        justifyContent:'center',
         paddingVertical:40,
         paddingHorizontal:40,
     },

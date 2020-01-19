@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {View, Text, StyleSheet,Image, Button} from 'react-native'
 import ListingFlatList from '../components/ListingFlatList'
 import { useSelector, useDispatch} from 'react-redux'
-import {ButtonGroup,Divider} from 'react-native-elements'
+import {ButtonGroup,Icon} from 'react-native-elements'
 import {ChangeDisplayListing} from '../redux/actions'
 
 import {random_image} from '../constants/links'
@@ -30,7 +30,13 @@ const UserProfile = props =>{
             </View>
                 
             <View style={styles.contentBox}>
-                <Image style={styles.image} source={{uri:random_image}}/>
+                <View style={{flexDirection:'row'}}>
+                    <Image style={styles.image} source={{uri:random_image}}/>
+                    <View style={{height:35,width:35,marginLeft:10,marginTop:165}}>
+                        <Icon size={35}type='octicon'
+                        name='sign-out' /> 
+                    </View>
+                </View>
                 <Text style={styles.content}>{user.bio? user.bio :`${user.username} does not have a bio yet`}</Text>
             </View>
             {/* <Divider style={{ backgroundColor: 'blue' }} /> */}
@@ -57,6 +63,8 @@ const styles = StyleSheet.create({
     },image:{
         height:200,
         width:200,
+        marginLeft:75,
+        // paddingLeft:100,
         alignSelf:'center',
         borderRadius:20,
         borderColor:'black',

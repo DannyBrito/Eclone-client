@@ -50,7 +50,7 @@ export default createAppContainer(
         NewListing:{screen:NewListing},
         UserProfile:{screen:UserProfile},
         Search:{screen:SearchBase},
-        PlayGround:{screen:CartCheckOut}
+        PlayGround:{screen:Playground}
     },
     {
 
