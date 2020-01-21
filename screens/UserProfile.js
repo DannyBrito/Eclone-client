@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import {View, Text, StyleSheet,Image} from 'react-native'
+import {View, Text, StyleSheet,Image,Alert} from 'react-native'
 import ListingFlatList from '../components/ListingFlatList'
 import { useSelector, useDispatch} from 'react-redux'
 import {ButtonGroup,Icon} from 'react-native-elements'
-import {ChangeDisplayListing} from '../redux/actions'
+import {ChangeDisplayListing,logOutRestStateAction} from '../redux/actions'
 
 import {random_image} from '../constants/links'
 const UserProfile = props =>{
@@ -16,11 +16,32 @@ const UserProfile = props =>{
     const buttons =['Selling','Favorites']
 
     const [showLiked, setShowLiked]= useState(false)
+
     const handlePress = listingProps =>{
         const listing = listingProps
         dispatch(ChangeDisplayListing(listing))
         props.navigation.navigate('ListingShow')
     }
+    
+    const SignoutPropmt = () =>{
+        Alert.alert(
+            'Sign Out?',null,
+            [{text:'Yes, Logout',
+                onPress:()=>signOut()
+            },
+            {
+            text:"Cancel",style:'cancel'
+            }
+            ]
+        )
+
+    }
+
+    const signOut = () =>{
+        props.navigation.navigate('Auth')
+        dispatch(logOutRestStateAction())
+    }
+
     // console.log(data)
     return(
         <View style={styles.container}>
@@ -33,7 +54,7 @@ const UserProfile = props =>{
                 <View style={{flexDirection:'row'}}>
                     <Image style={styles.image} source={{uri:random_image}}/>
                     <View style={{height:35,width:35,marginLeft:10,marginTop:165}}>
-                        <Icon size={35}type='octicon'
+                        <Icon size={35}type='octicon' onPress={SignoutPropmt}
                         name='sign-out' /> 
                     </View>
                 </View>
@@ -59,7 +80,8 @@ const UserProfile = props =>{
 
 const styles = StyleSheet.create({
     container:{
-        flex:2,
+        flex:1,
+        // backgroundColor:'red'
     },image:{
         height:200,
         width:200,

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet,StatusBar} from 'react-native'
 
 import ListingFlatList from '../components/ListingFlatList'
 
@@ -31,6 +31,7 @@ const Home = props =>{
     return(
 
         <View style={styles.home}>
+            <StatusBar barStyle="dark-content" />
             <ListingFlatList data={listings} handlePress={handlePress}/>
         </View>
 
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
         flex:1,
         // paddingHorizontal:30,
         paddingLeft:30,
-        paddingTop:50,
+        // paddingTop:50,
         // alignItems:'center',
         // alignContent:'space-between',
         // flexDirection:'row',

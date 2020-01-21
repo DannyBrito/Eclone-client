@@ -1,4 +1,4 @@
-import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS,FETCH_OUT_STOCK_LISTINGS,FETCH_IN_CART_LISTINGS,DELETE_LISTING_FROM_CART_TOTAL,ADD_TO_CART,BUY_IN_CART} from './action_type'
+import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS,FETCH_OUT_STOCK_LISTINGS,FETCH_IN_CART_LISTINGS,DELETE_LISTING_FROM_CART_TOTAL,ADD_TO_CART,BUY_IN_CART,RESTATE} from './action_type'
 
 const defaultState = {
     // fetched_listings refering to all avalible listings
@@ -61,9 +61,13 @@ function reducer(prevState = defaultState,{type,payload,offset,adjust}){
 
         case BUY_IN_CART:
             return{...prevState,user_in_cart_listings:[],cart_total:0,fetched_listings:payload,own_listings:offset,liked_listings:adjust}
+        
+        case RESTATE:
+            return {...defaultState}
+
         default:
 
-            return prevState
+        return prevState
     }
 
 }

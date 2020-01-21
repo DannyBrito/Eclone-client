@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet, Alert} from 'react-native'
+import {View, Text, StyleSheet, Alert,StatusBar} from 'react-native'
 import { useSelector, useDispatch} from 'react-redux'
 
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
@@ -30,6 +30,7 @@ const CartCheckOut = props =>{
 
     return(
         <View style={styles.container}>
+            <StatusBar barStyle="dark-content" />
             <View style={styles.titleBox}>
                 <Text style={styles.title}>Your Cart</Text>
             </View>
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     },
     title:{
         fontSize:50,
+        fontWeight:'200',
         alignSelf:'center'
     },
     titleBox:{
