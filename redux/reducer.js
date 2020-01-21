@@ -12,7 +12,7 @@ const defaultState = {
     cart_total:0
 }
 
-function reducer(prevState = defaultState,{type,payload,offset}){
+function reducer(prevState = defaultState,{type,payload,offset,adjust}){
 
     switch(type){
         case FETCH_LISTINGS:
@@ -60,7 +60,7 @@ function reducer(prevState = defaultState,{type,payload,offset}){
             return{...prevState,user_in_cart_listings:[...prevState.user_in_cart_listings,payload],cart_total:offset}
 
         case BUY_IN_CART:
-            return{...prevState,user_in_cart_listings:[],cart_total:0,fetched_listings:payload,own_listings:offset}
+            return{...prevState,user_in_cart_listings:[],cart_total:0,fetched_listings:payload,own_listings:offset,liked_listings:adjust}
         default:
 
             return prevState

@@ -1,40 +1,65 @@
 import React,{useState,useEffect} from 'react'
 import {View, Text, StyleSheet,Image, ScrollView, FlatList} from 'react-native'
-
 import ListingFlatList from '../components/ListingFlatList'
-
 import { useSelector, useDispatch} from 'react-redux'
-
 import {ChangeDisplayListing} from '../redux/actions'
-
 import {autoFetchListings,userOwnListingsFetch,userLikedListingFetch} from '../redux/actions'
+import { Input,Button} from 'react-native-elements'
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import { URL_BASE } from '../constants/links'
 
 
-
-import { Input} from 'react-native-elements'
-
-
-
-
-
-const users = [
-    {
-       name: 'brynn',
-       avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-       icon: 'remove-shopping-cart'
-    },
-    {
-       name: 'nuts',
-       avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-       icon: 'av-timer'
-    },
-   ]
 const Playground = props =>{
-        const [searchQuery,setSearchQuery] = useState('')
+
+        const handlePress = async () =>{
+            await Permissions.askAsync(Permissions.CAMERA_ROLL)
+            const {cancelled,uri} = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1
+            });
+            if(!cancelled){
+                let localUri = uri;
+                let filename = localUri.split('/').pop();
+              
+                // Infer the type of the image
+                let match = /\.(\w+)$/.exec(filename);
+                let type = match ? `image/${match[1]}` : `image`;
+              
+                // Upload the image using the fetch and FormData APIs
+                let formData = new FormData();
+                  formData.append('photo', { uri: localUri, name: filename, type })
+                console.log(formData)   
+            }
+            //       formData.append('listing',JSON.stringify({
+            //           title:'test',
+            //           price:49.91,
+            //           description:'jhejrejr'
+            //       }))
+            //     // Assume "photo" is the name of the form field the server expects
+            //     // formData.append('uri',localUri)
+            //     // formData.append('name',filename)
+            //     // formData.append('type', type);
+              
+            //     return await fetch(URL_BASE+'testing', {
+            //       method: 'POST',
+            //       headers: {
+            //         'content-type': 'multipart/form-data',
+            //       },
+            //       body: formData,
+            //     }).then(res => res.json())
+            //     .then(console.log)
+            // }
+        } 
+
     return(
 
         <View style={styles.home}>
-          <Input errorMessage="thes required" label="title" value="lol"/>
+            <View style={styles.box}>
+            <Button title="ADD IMAGE" onPress={handlePress}/>
+            </View>
         </View>
 
     )
@@ -58,11 +83,9 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         // flexWrap:'wrap'
     },
-    image:{
-    height:30,
-    width:30
-
-}
+    box:{
+        marginHorizontal:20,
+    }
 })
 
 export default Playground;

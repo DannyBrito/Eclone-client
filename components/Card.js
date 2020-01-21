@@ -6,7 +6,7 @@ const Card = props =>{
     return(
         <View style={{...styles.card,...props.style}}>
             <TouchableOpacity onPress={() => props.handlePress(props)}>
-                <Image  style={styles.image} source={{uri:random_image}} />
+                <Image  style={styles.image} source={{uri:props.url}} />
             </TouchableOpacity>
             <Text style={styles.titleX}>${props.price}</Text>
             <Text style={styles.title}>{props.title}</Text>

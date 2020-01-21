@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {View, TextInput, StyleSheet,Text,Button, Alert,ScrollView} from 'react-native'
-// import { ScrollView } from 'react-native-gesture-handler'
+import { Icon } from 'react-native-elements'
 
 const SignUpForm = props =>{
     const[user, setUser] = useState('')
@@ -33,7 +33,7 @@ const SignUpForm = props =>{
                 <View style={{...styles.inputBox,borderColor:borderColor}}> 
                     <TextInput  style={styles.inputW} secureTextEntry={visiblePassword} type="password" onChangeText={setPassword} value={password} placeholder="Password"/>
                     <View>
-                        <Button  style={styles.buttonInput}title='◎' onPress={()=>setVisiblePassword(prev => !prev)}/>
+                    <Icon iconStyle={{marginRight:1}}name={visiblePassword ?'eye':'eye-off'}type='material-community'color='black'onPress={()=>setVisiblePassword(prev => !prev)}/>
                     </View>
                 </View>
                 <Text style={styles.paddingVertical}>Confirm Password:</Text>

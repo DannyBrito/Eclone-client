@@ -1,4 +1,5 @@
- const URL ='https://9162e1ee.ngrok.io'
+ const URL ='https://57e79b52.ngrok.io'
+ 
  
  const URL_BASE =  URL + '/api/v1/'
 
@@ -26,7 +27,6 @@ export const POST_FETCH = (path,body ={})=>{
         return fetch(URL_BASE + path,config)
                 .then(res => res.json())
 }
-
 
 export const random_image = 'https://source.unsplash.com/random'
 

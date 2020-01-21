@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 
 import ListingFlatList from '../components/ListingFlatList'
 
@@ -7,7 +7,6 @@ import { useSelector, useDispatch} from 'react-redux'
 
 import {ChangeDisplayListing,autoFetchListings,userOwnListingsFetch,userLikedListingFetch,outStockListingsFetch,fetchCartListingsAction} from '../redux/actions'
 
-import {POST_FETCH} from '../constants/links'
 
 const Home = props =>{
     const dispatch = useDispatch()
@@ -16,7 +15,7 @@ const Home = props =>{
     const user = useSelector(state => state.first.currentUser)
     
     const handlePress = listingProps =>{
-        const {url,...listing} = listingProps
+        const listing = listingProps
         dispatch(ChangeDisplayListing(listing))
         props.navigation.navigate('ListingShow')   
     }

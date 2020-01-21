@@ -1,10 +1,9 @@
 import React,{useState} from 'react'
 import {View, TextInput, StyleSheet,Text,Button} from 'react-native'
-
+import { Icon } from 'react-native-elements'
 const Form = props =>{
     const[user, setUser] = useState('')
     const[visiblePassword, setVisiblePassword] = useState(true)
-    const[indexInput, setIndexInput] = useState(false)
     const[password, setPassword] = useState('')
     const onSubmit =()=>{
         props.handleSubmit(user,password)
@@ -23,7 +22,7 @@ const Form = props =>{
                 <View style={styles.inputBox}> 
                     <TextInput returnKeyType="go" onSubmitEditing={onSubmit} style={styles.inputW} secureTextEntry={visiblePassword} type="password" onChangeText={setPassword} value={password} placeholder="Password"/>
                     <View>
-                        <Button  style={styles.buttonInput}title='◎' onPress={()=>setVisiblePassword(prev => !prev)}/>
+                    <Icon iconStyle={{marginRight:1}} name={visiblePassword ?'eye':'eye-off'}type='material-community'color='black'onPress={()=>setVisiblePassword(prev => !prev)}/>
                     </View>
                 </View>
 

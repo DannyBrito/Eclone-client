@@ -8,7 +8,7 @@ const ListingFlatList = props =>{
         <>
             <FlatList style={styles.list}columnWrapperStyle={2} horizontal={false} numColumns={2}
                 data={props.data}
-                renderItem={({item})=><Card handlePress={props.handlePress} {...item} url='https://source.unsplash.com/random'/>}
+                renderItem={({item})=><Card handlePress={props.handlePress} {...item} />}
                 keyExtractor={item => `${item.id}`}/>
         </>
     )

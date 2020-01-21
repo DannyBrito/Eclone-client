@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {View, Text, StyleSheet,Image, Button} from 'react-native'
+import {View, Text, StyleSheet,Image} from 'react-native'
 import ListingFlatList from '../components/ListingFlatList'
 import { useSelector, useDispatch} from 'react-redux'
 import {ButtonGroup,Icon} from 'react-native-elements'
@@ -17,7 +17,7 @@ const UserProfile = props =>{
 
     const [showLiked, setShowLiked]= useState(false)
     const handlePress = listingProps =>{
-        const {url,...listing} = listingProps
+        const listing = listingProps
         dispatch(ChangeDisplayListing(listing))
         props.navigation.navigate('ListingShow')
     }

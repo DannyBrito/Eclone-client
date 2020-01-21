@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet, ScrollView,Image, Alert} from 'react-native'
+import {View, Text, StyleSheet,Image, Alert} from 'react-native'
 import { useSelector, useDispatch} from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
-import {DELETE_FETCH, random_image,POST_FETCH} from '../constants/links'
+import {DELETE_FETCH,POST_FETCH} from '../constants/links'
 import { likedListings as likedListingsAction,deleteListingFromCartAction,addListingToCartAction } from '../redux/actions'
 import { Button,Icon } from 'react-native-elements';
 
@@ -80,7 +80,7 @@ const ListingShow = () =>{
                 <Text style={styles.title}>{props.title}</Text>
             </View>
             <View style={styles.imageBox}>
-                <Image style={styles.image} source={{uri: random_image}} />
+                <Image style={styles.image} source={{uri: props.url}} />
             </View>
             <View style={styles.content}>
                 <View style={styles.base}>
@@ -103,7 +103,7 @@ const ListingShow = () =>{
             {inCartCheck.cart_id?
                 <View>
                     <Button onPress={()=>dispatch(deleteListingFromCartAction(inCartCheck.cart_id))}
-                    title='Remove From Cart'iconRight
+                    title='Remove From Cart'iconRight buttonStyle={{backgroundColor:'red'}}
                     icon={<Icon name="remove-shopping-cart" size={20} color="white"/>}/>
                 </View>
                 :(props.on_stock ?

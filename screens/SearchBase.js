@@ -1,25 +1,28 @@
 import React, {useState} from 'react'
-import {View, Text, StyleSheet, Button, Alert} from 'react-native'
+import {View, Text, StyleSheet, Alert} from 'react-native'
 import {useDispatch} from 'react-redux'
-import InputLabel from '../components/InputLabel'
+import {SearchBar} from 'react-native-elements'
+
 import ListingFlatList from '../components/ListingFlatList'
 import { URL_BASE } from '../constants/links'
 import {ChangeDisplayListing} from '../redux/actions'
 
-import {ButtonGroup,SearchBar} from 'react-native-elements'
 
 const SearchBase = props =>{
      const [searchQuery,setSearchQuery] = useState('')
      const [data,setData] = useState([])   
      const [load,setLoad] = useState(false)   
+     const [found,setFound] = useState(false)   
     
      const dispatch = useDispatch()
      const handleSubmit = () =>{
         if(searchQuery.trim()){
+            setFound(true)
         fetch(URL_BASE+`/search/${searchQuery.trim()}?xr=never`)
             .then(res =>res.json())
             .then(res =>{
                 setLoad(true)
+                setFound(false)
                 setData(res)
             })
         }
@@ -29,7 +32,7 @@ const SearchBase = props =>{
      }
     
     const handlePress = listingProps =>{
-        const {url,...listing} = listingProps
+        const listing = listingProps
         dispatch(ChangeDisplayListing(listing))
         props.navigation.navigate('ListingShow')    
     }
@@ -37,10 +40,10 @@ const SearchBase = props =>{
     return(
         <View styles={styles.container}>
             <View style={styles.header}>
-                <SearchBar 
+                <SearchBar showLoading={found}
                 onSubmitEditing={handleSubmit}
                 returnKeyType='search'
-              placeholder="Type Here..."
+              placeholder="Search listings..."
               onChangeText={setSearchQuery}
               value={searchQuery}
             //   containerStyle={{backgroundColor:'#dedede'}}
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
         // color:'green'
     },
     divisionText:{
-        color:'blue',
+        color:'#0d3341',
         fontSize:20,
         alignSelf:'center'
     },

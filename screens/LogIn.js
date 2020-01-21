@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet, ScrollView,ImageBackground, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native'
+import {View, Text, StyleSheet,ImageBackground, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native'
 import { useSelector, useDispatch} from 'react-redux'
 
 import Form from '../components/Form'

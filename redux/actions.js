@@ -156,11 +156,12 @@ export function addListingToCartAction(user_id,listing_id){
     }
 }
 
-export function buyInCart(updatedListings,updatedOwnListings){
+export function buyInCart(updatedListings,updatedOwnListings,favListings){
     return{
         type:BUY_IN_CART,
         payload:updatedListings,
-        offset:updatedOwnListings
+        offset:updatedOwnListings,
+        adjust:favListings
     }
 }
 
@@ -168,7 +169,7 @@ export function buyInCartAction(user_id){
     return (dispatch, getState) => {
         return POST_FETCH(`users/${user_id}/adquired`)
             .then(res =>{
-                dispatch(buyInCart(res.avalible_listings,res.own_listings))
+                dispatch(buyInCart(res.avalible_listings,res.own_listings,res.fav_listings))
                 return res
             })
     }

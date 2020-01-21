@@ -39,7 +39,7 @@ const CartCheckOut = props =>{
                     <ListItem containerStyle={styles.item}
                     // checkmark={true}
                     key={listing.cart_id}
-                    leftAvatar={{ source: { uri: random_image } }}
+                    leftAvatar={{ source: { uri: listing.url } }}
                     title={listing.title}
                     subtitle={`$${listing.price}`}
                     rightIcon={{ name: 'remove-shopping-cart',onPress:()=>dispatch(deleteListingFromCartAction(listing.cart_id))}}
