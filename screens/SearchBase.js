@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, Text, StyleSheet, Alert} from 'react-native'
+import {View, Text, StyleSheet, Alert,StatusBar} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {SearchBar} from 'react-native-elements'
 
@@ -39,6 +39,7 @@ const SearchBase = props =>{
 
     return(
         <View styles={styles.container}>
+              <StatusBar barStyle="light-content" />
             <View style={styles.header}>
                 <SearchBar showLoading={found}
                 onSubmitEditing={handleSubmit}
@@ -46,7 +47,9 @@ const SearchBase = props =>{
               placeholder="Search listings..."
               onChangeText={setSearchQuery}
               value={searchQuery}
-            //   containerStyle={{backgroundColor:'#dedede'}}
+              containerStyle={{paddingTop:20}}
+              inputStyle={{fontSize:30,color:'white'}}
+              inputContainerStyle={{height:50}}
               searchIcon={{onPress:handleSubmit}}
                 />
             </View>

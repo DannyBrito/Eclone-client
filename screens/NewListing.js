@@ -121,7 +121,7 @@ const NewListing = props =>{
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
             <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
-                <Text h2>Create New Listing</Text>
+                <Text style={{fontWeight:'200'}} h2>Create New Listing</Text>
             </View>
             <Divider />
                 <View style={styles.container}>
@@ -157,7 +157,8 @@ const styles = StyleSheet.create({
         flex:1,
         // backgroundColor:'red',
     },headerContainer:{
-        flex:1,
+        // flex:1,
+        height:100,
         flexDirection:"column-reverse",
         paddingLeft:35
         // backgroundColor:'green',

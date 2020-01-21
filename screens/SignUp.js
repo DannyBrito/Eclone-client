@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet, ScrollView,ImageBackground, TextInput,TouchableWithoutFeedback,Keyboard,Alert} from 'react-native'
+import {View, Text, StyleSheet, ScrollView,ImageBackground, TextInput,TouchableWithoutFeedback,Keyboard,Alert,StatusBar} from 'react-native'
 
 import CardInsert from '../components/CardInsert'
 
@@ -38,6 +38,7 @@ const SignUp = props =>{
     return(
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
             <View style={styles.container}>
+                <StatusBar barStyle="dark-content" />
                 <ImageBackground source={require('../assets/Signup.jpg')} style={{width: '100%', height: '100%'}} style={{...styles.container,...props.style}}>
                     
                     <View style={styles.MainTitle}>

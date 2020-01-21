@@ -1,4 +1,4 @@
-import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS,FETCH_OUT_STOCK_LISTINGS,FETCH_IN_CART_LISTINGS,DELETE_LISTING_FROM_CART_TOTAL,ADD_TO_CART,BUY_IN_CART} from './action_type'
+import {FETCH_LISTINGS,CHANGE_DISPLAY_LISTING,SET_CURRENT_USER,FETCH_OWN_LISTINGS,ADD_TO_OWN_LISTINGS,ADD_TO_FETCH_LISTINGS,SETTING_LIKED_LISTINGS,FETCH_OUT_STOCK_LISTINGS,FETCH_IN_CART_LISTINGS,DELETE_LISTING_FROM_CART_TOTAL,ADD_TO_CART,BUY_IN_CART,RESTATE} from './action_type'
 import {URL_BASE,DELETE_FETCH, POST_FETCH} from '../constants/links'
 import { Alert } from 'react-native'
 
@@ -174,3 +174,15 @@ export function buyInCartAction(user_id){
             })
     }
 }
+
+export function logOutRestState(){
+    return{
+        type:RESTATE,
+    }
+}
+export function logOutRestStateAction(){
+    return (dispatch, getState) => {
+        dispatch(logOutRestState())
+    }
+}
+

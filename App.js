@@ -4,7 +4,7 @@ import { StyleSheet} from 'react-native';
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
-import Navigator from './routes/SignUp'
+import Navigator from './routes/Navigators'
 
 export default function App() {
 
