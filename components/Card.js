@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, StyleSheet, Image,TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, Image,TouchableOpacity,Dimensions} from 'react-native'
 import {random_image} from '../constants/links'
 
 const Card = props =>{
@@ -31,6 +31,12 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         // flexDirection:'row',
         marginVertical:10,
+        maxWidth: Dimensions.get('window').width /2,
+        // flex:1,
+        backgroundColor: '#fff',
+        marginBottom: 2,
+        marginHorizontal:2,
+        borderRadius: 20,
     },
     image:{
         // marginVertical: 5,

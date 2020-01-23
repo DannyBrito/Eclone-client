@@ -34,7 +34,7 @@ const AppStack = createBottomTabNavigator({
         navigationOptions: {
             headerShown: false,
         }
-    }
+    },
 });
 
 export default AppStack
