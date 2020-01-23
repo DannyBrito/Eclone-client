@@ -6,7 +6,7 @@ import Card from './Card'
 const ListingFlatList = props =>{
     return(
         <>
-            <FlatList style={styles.list}columnWrapperStyle={2} horizontal={false} numColumns={2}
+            <FlatList style={{...styles.list,...props.style}}columnWrapperStyle={2} horizontal={false} numColumns={2}
                 data={props.data}
                 renderItem={({item})=><Card handlePress={props.handlePress} {...item} />}
                 keyExtractor={item => `${item.id}`}/>
@@ -15,7 +15,13 @@ const ListingFlatList = props =>{
 }
 
 const styles = StyleSheet.create({
-    
+    list:{
+        flex: 1,
+        // flexDirection: 'row',
+        // justifyContent: 'space-between',
+        paddingVertical: 10,
+        // marginBottom: 40
+    }
 })
 
 export default  ListingFlatList;

@@ -52,7 +52,7 @@ const UserProfile = props =>{
                 
             <View style={styles.contentBox}>
                 <View style={{flexDirection:'row'}}>
-                    <Image style={styles.image} source={{uri:random_image}}/>
+                    <Image style={styles.image} source={{uri:user.image_url}}/>
                     <View style={{height:35,width:35,marginLeft:10,marginTop:165}}>
                         <Icon size={35}type='octicon' onPress={SignoutPropmt}
                         name='sign-out' /> 
@@ -83,9 +83,9 @@ const styles = StyleSheet.create({
         flex:1,
         // backgroundColor:'red'
     },image:{
-        height:200,
-        width:200,
-        marginLeft:75,
+        height:250,
+        width:250,
+        marginLeft:50,
         // paddingLeft:100,
         alignSelf:'center',
         borderRadius:20,

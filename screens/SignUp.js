@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet, ScrollView,ImageBackground, TextInput,TouchableWithoutFeedback,Keyboard,Alert,StatusBar} from 'react-native'
+import {View, Text, StyleSheet,KeyboardAvoidingView, ScrollView,ImageBackground, TextInput,TouchableWithoutFeedback,Keyboard,Alert,StatusBar} from 'react-native'
 
 import CardInsert from '../components/CardInsert'
 
@@ -49,11 +49,11 @@ const SignUp = props =>{
                         <Text style={styles.SubTitleText}>Sign-Up</Text>
                     </View>
 
+                    {/* <KeyboardAvoidingView> */}
                     <CardInsert style={{flex:6}}>
-                        {/* <ScrollView maintainVisibleContentPosition={{minIndexForVisible:0,contentOffset:'viseble'}}>   */}
                         <SignUpForm handleChange={handleChange} toggleLogSign={props.toggleLogSign} handleSubmit={handleSubmit} style={{flex:6}}/>
-                        {/* </ScrollView> */}
                     </CardInsert>
+                    {/* </KeyboardAvoidingView > */}
 
                 </ImageBackground>
             </View>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     SubTitleText:{
         fontSize:50,
         color:'#61dafb',
-        fontFamily:'AvenirNext-Italic',
+        // fontFamily:'AvenirNext-Italic',
         textAlign:'center',
         backgroundColor:'rgba(0,149,255,0.09)',
         textShadowColor: 'rgba(0, 0, 0, 1)',

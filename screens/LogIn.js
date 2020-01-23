@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {View, Text, StyleSheet,ImageBackground, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native'
+import {View, Text, StyleSheet,ImageBackground, TouchableWithoutFeedback, Keyboard, Alert, KeyboardAvoidingView} from 'react-native'
 import { useSelector, useDispatch} from 'react-redux'
 
 import Form from '../components/Form'
@@ -40,7 +40,9 @@ const LogIn = props =>{
                 </View>
 
                 <CardInsert style={{flex:6}}>
+                    <KeyboardAvoidingView>
                     <Form handleChange={handleChange}handleSubmit={handleSubmit} style={{flex:6}}/>
+                    </KeyboardAvoidingView>
                 </CardInsert>
 
             </ImageBackground>
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     SubTitleText:{
         fontSize:50,
         color:'#61dafb',
-        fontFamily:'AvenirNext-Italic',
+        // fontFamily:'AvenirNext-Italic',
         textAlign:'center',
         backgroundColor:'rgba(0,149,255,0.09)',
         textShadowColor: 'rgba(0, 0, 0, 1)',

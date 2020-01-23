@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
         width:100
     },
     divisionBox:{
-        height:35,
-        paddingTop:5,
+        height:70,
+        paddingTop:35,
         borderBottomColor:'grey',
         borderBottomWidth:2
         // paddingLeft:60,
