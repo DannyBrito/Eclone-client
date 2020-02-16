@@ -7,6 +7,7 @@ const ListingFlatList = props =>{
     return(
         <>
             <FlatList style={{...styles.list,...props.style}}columnWrapperStyle={2} horizontal={false} numColumns={2}
+                contentContainerStyle={{paddingBottom:60}}
                 data={props.data}
                 renderItem={({item})=><Card handlePress={props.handlePress} {...item} />}
                 keyExtractor={item => `${item.id}`}/>

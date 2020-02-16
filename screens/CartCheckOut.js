@@ -2,6 +2,9 @@ import React,{useState,useEffect} from 'react'
 import {View, Text, StyleSheet, Alert,StatusBar} from 'react-native'
 import { useSelector, useDispatch} from 'react-redux'
 
+import { StackActions, NavigationActions } from 'react-navigation';
+
+
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import {random_image} from '../constants/links'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -9,21 +12,28 @@ import { ScrollView } from 'react-native-gesture-handler'
 import {deleteListingFromCartAction,buyInCartAction} from '../redux/actions'
 
 const CartCheckOut = props =>{
-
+    
     const dispatch = useDispatch()
     const listings = useSelector(state=> state.first.user_in_cart_listings)
     const cart_total = useSelector(state=> state.first.cart_total)
     const user = useSelector(state=> state.first.currentUser)
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Home' })],
+    });
 
     const handleBuy = () =>{
         dispatch(buyInCartAction(user.id))
         .then(res => {
             if(!res.unavalible_listings_ids.length){
-                Alert.alert("All Items where succesfully\nPurchased")
+                Alert.alert("All Items were succesfully\nPurchased",null,[{text:'ok',onPress:()=>props.navigation.dispatch(resetAction)
+            }])
+                // props.navigation.navigate('Home')
             }
             else{
                 const msg = res.unavalible_listings_ids.map((listing,index) =>`${index+1}. ${listing.title}`).join('\n').trim()
-                Alert.alert("Some items in your cart are no longer available:",msg+`\nNew Total Payment: $${res.total}`)
+                Alert.alert("Some items in your cart are no longer available:",msg+`\nNew Total Payment: $${res.total}`,null,[{text:'ok',onPress:()=>props.navigation.dispatch(resetAction)
+            }])
             }
         })
     }
