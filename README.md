@@ -1,5 +1,6 @@
 # Eclone - App
-[Backend]()
+
+[Backend](https://github.com/DannyBrito/Eclone-backend)
 
 > An ecommerce app that allows users to quickly list and adquired items for sell. Inspired by letgot & ebay.
 
@@ -16,6 +17,7 @@ An user is able to:
 
 ##### Login & Signup (Screens)
 An user is able to Login or Signup for the app
+
 ![](./docs/StartScreens.gif)
 
 ##### Home - Main Listings Page
@@ -39,6 +41,7 @@ User can get relevant information about a specific item(condition,description,pr
 
 ##### User Profile
 Display user info, selling items and favorites
+
 ![](./docs/Profile.gif)
 
 ##### Search & Checkout
