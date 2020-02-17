@@ -2,14 +2,14 @@
 
 [Backend](https://github.com/DannyBrito/Eclone-backend)
 
-> An ecommerce app that allows users to quickly list and acquire items for sell. Inspired by letgot & ebay.
+> An ecommerce app that allows users to quickly list and acquire items for sale. Inspired by letgot & ebay.
 
 
 ## Features:
 An user is able to:
 <ul> 
     <li />browse all featured listings
-    <li />post items for sell
+    <li />post items for sale
     <li />search for a specific item/listing on the app
     <li />track items by favorite system
     <li />checkout/purchase items
