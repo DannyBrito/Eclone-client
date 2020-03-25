@@ -76,7 +76,7 @@ An user is able to post items for sell on Eclone. All form fields are required f
 
 Notes:
 Cloudinary is the media storage management.
-Ngrok used to temporally host API through tunneling.
+Ngrok used to temporally host API through tunneling.(Development)
 
 ## Meta
 
